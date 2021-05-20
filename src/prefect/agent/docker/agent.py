@@ -391,6 +391,8 @@ class DockerAgent(Agent):
                     " is not in the reg_allow_list".format(registry)
                 )
             else:
+                self.logger.info("Reloading docker config")
+                self.docker_client.reload_config()
                 pull_output = self.docker_client.pull(image, stream=True, decode=True)
                 for line in pull_output:
                     self.logger.debug(line)
